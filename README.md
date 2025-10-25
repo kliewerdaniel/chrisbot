@@ -78,8 +78,9 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kliewerdaniel/chrisbot.gi
+   git clone https://github.com/kliewerdaniel/chrisbot.git
    cd chrisbot
+   git clone https://github.com/coqui-ai/TTS.git
    ```
 
 2. **Install Node.js dependencies**

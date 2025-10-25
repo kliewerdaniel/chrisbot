@@ -13,7 +13,7 @@ export class TTSService {
 
   constructor() {
     // Use the Python virtual environment we set up
-    this.pythonPath = path.join(process.cwd(), 'TTS', 'venv', 'bin', 'python')
+    this.pythonPath = path.join(process.cwd(), 'TTS', 'venv311', 'bin', 'python')
     this.ttsPath = path.join(process.cwd(), 'TTS')
   }
 
