@@ -27,7 +27,7 @@ git clone https://github.com/coqui-ai/TTS.git
 echo "Installing TTS dependencies..."
 cd TTS
 pip install --upgrade pip
-pip install -r TTS/requirements.txt
+pip install -r requirements.txt
 pip install trainer
 pip install -e .
 
