@@ -37,29 +37,4 @@ TTS_PID=$!
 cd ..
 echo "TTS server started with PID: $TTS_PID"
 
-# Check if Ollama is running
-echo "🤖 Checking Ollama status..."
-if ! python3 -c "
-import ollama
-try:
-    ollama.generate(model='mistral', prompt='test', options={'num_predict': 1})
-    print('✅ Ollama is running and accessible.')
-except Exception as e:
-    print(f'⚠️  Ollama connection test failed: {e}')
-    echo 'Please ensure Ollama is running with: ollama serve'
-    echo 'And pull a model with: ollama pull mistral'
-    echo 'You can continue without it, but Graph RAG features will not work.'
-"
-# Optional: Initialize knowledge graph (comment out if not needed)
-# echo "🧠 Initializing knowledge graph (this may take several minutes)..."
-# bash scripts/init-knowledge-graph.sh
 
-# Start the Next.js development server
-echo "🌐 Starting Next.js development server..."
-npm run dev
-
-# When Next.js is stopped, also kill TTS server
-echo "Stopping TTS server..."
-kill $TTS_PID 2>/dev/null
-
-echo "✅ ChrisBot08 stopped."
