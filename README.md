@@ -6,6 +6,8 @@
 
 *Important Note although Graph RAG was explored with this repo, it is not fully implemented... yet. So that is on a to do list.*
 
+![alt text](ss.png)
+
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC.svg)](https://tailwindcss.com/)
