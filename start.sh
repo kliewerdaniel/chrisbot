@@ -17,7 +17,7 @@ npm install
 
 # Set up TTS (Coqui) - assuming already cloned in TTS/
 echo "🎵 Setting up Text-to-Speech (TTS)..."
-cd TTS
+
 if [ ! -d "venv311" ]; then
     echo "Creating TTS virtual environment..."
     python3.11 -m venv venv311
