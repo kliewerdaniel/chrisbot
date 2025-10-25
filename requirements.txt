@@ -1,0 +1,6 @@
+networkx==3.2.1
+python-frontmatter==1.1.0
+sqlalchemy==2.0.23
+ollama==0.2.1
+numpy>=1.21.0
+scikit-learn>=1.0.0

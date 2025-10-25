@@ -1,0 +1,7 @@
+- [x] Analyze chat data structure from frontend to understand what messages are being sent
+- [x] Check the ingest_chat_history method logic for processing pairs vs individual messages
+- [x] Add debugging output to Python script to see what data is being received and processed
+- [x] Fix the message processing logic to handle all message types, not just alternating user/assistant pairs
+- [x] Add filtering of empty/whitespace-only messages in API route
+- [x] Test the ingestion with actual chat data from the application including empty messages
+- [x] Verify processed_count is correctly calculated and returned for filtered data

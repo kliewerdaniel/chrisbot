@@ -1,0 +1,1 @@
+[{"id": "test-session-1", "title": "Test Chat", "model": "mistral-small3.2:latest", "messages": [{"role": "user", "content": "Hello, how are you?"}, {"role": "assistant", "content": "I am doing well, thank you for asking!"}], "createdAt": "2025-10-23T12:00:00.000Z", "updatedAt": "2025-10-23T12:00:00.000Z"}]
