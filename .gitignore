@@ -17,7 +17,7 @@
 /back
 # testing
 /coverage
-
+/public/audio/
 # next.js
 /.next/
 /out/

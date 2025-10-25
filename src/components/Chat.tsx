@@ -596,7 +596,7 @@ export default function Chat() {
                     size="sm"
                     onClick={() => setVoiceEnhancement(!voiceEnhancement)}
                     title={voiceEnhancement ? "Disable voice enhancement" : "Enable voice enhancement"}
-                    className="h-8 px-2 sm:px-3"
+                    className={`h-8 px-2 sm:px-3 ${voiceEnhancement ? "bg-teal-100 text-teal-800" : ""}`}
                   >
                     <AudioWaveform className="h-4 w-4" />
                     <span className="hidden sm:inline ml-1">Enhanced</span>
@@ -606,7 +606,7 @@ export default function Chat() {
                     size="sm"
                     onClick={() => setAutoPlayEnabled(!autoPlayEnabled)}
                     title={autoPlayEnabled ? "Disable auto-play" : "Enable auto-play"}
-                    className="h-8 px-2 sm:px-3"
+                    className={`h-8 px-2 sm:px-3 ${autoPlayEnabled ? "bg-teal-100 text-teal-800" : ""}`}
                   >
                     <Speaker className="h-4 w-4" />
                     <span className="hidden sm:inline ml-1">Auto-play</span>
@@ -657,7 +657,7 @@ export default function Chat() {
           {/* Messages */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto space-y-4 p-4 border rounded-lg bg-muted relative"
+            className="flex-1 overflow-y-auto space-y-4 p-4 border rounded-lg bg-muted/80 relative"
           >
             {messages.length === 0 ? (
               <div className="text-center text-muted-foreground mt-8">
