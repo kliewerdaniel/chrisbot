@@ -4,6 +4,8 @@
 
 *An advanced AI chatbot platform with Graph RAG and Text-to-Speech capabilities*
 
+*Important Note although Graph RAG was explored with this repo, it is not fully implemented... yet. So that is on a to do list.*
+
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC.svg)](https://tailwindcss.com/)
