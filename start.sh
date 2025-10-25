@@ -23,10 +23,10 @@ if [ ! -d "venv311" ]; then
     python3.11 -m venv venv311
 fi
 source venv311/bin/activate
-
+git clone https://github.com/coqui-ai/TTS.git
 echo "Installing TTS dependencies..."
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r TTS/requirements.txt
 pip install trainer
 pip install -e .
 
