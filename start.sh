@@ -25,6 +25,7 @@ fi
 source venv311/bin/activate
 git clone https://github.com/coqui-ai/TTS.git
 echo "Installing TTS dependencies..."
+cd TTS
 pip install --upgrade pip
 pip install -r TTS/requirements.txt
 pip install trainer
