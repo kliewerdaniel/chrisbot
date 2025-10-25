@@ -20,7 +20,7 @@ export const useUIStore = create<UISettingsState>()(
 
       // Coqui TTS settings
       ttsModels: [],
-      selectedTTSModel: 'tts_models/en/ljspeech/tacotron2-DDC',
+      selectedTTSModel: 'browser-tts',
       isTTSLoading: false,
       ttsLoadingMessages: new Set<number>(),
 
@@ -52,18 +52,34 @@ export const useUIStore = create<UISettingsState>()(
           const response = await fetch('/api/tts')
           if (response.ok) {
             const data = await response.json()
-            if (data.success) {
-              // Transform the models array to include descriptions
-              const modelsWithDescriptions = data.models.map((modelName: string) => ({
-                name: modelName,
-                description: modelName.split('/').join(' • '),
-                language: modelName.split('/')[1] || 'en'
-              }))
-              set({ ttsModels: modelsWithDescriptions })
+            if (data.success && data.models) {
+              // The API now returns objects with name, description, and language properties
+              set({ ttsModels: data.models })
+
+              // Set appropriate default model
+              const { selectedTTSModel } = get()
+              if (data.models.length > 0) {
+                // If current selection is not in the available models, select the first one
+                const modelExists = data.models.some((model: any) => model.name === selectedTTSModel)
+                if (!modelExists) {
+                  set({ selectedTTSModel: data.models[0].name })
+                }
+              }
             }
           }
         } catch (error) {
           console.error('Failed to load TTS models:', error)
+          // Set fallback models when TTS server is not available
+          set({
+            ttsModels: [
+              {
+                name: 'browser-tts',
+                description: 'Browser TTS (Default)',
+                language: 'en'
+              }
+            ],
+            selectedTTSModel: 'browser-tts'
+          })
         } finally {
           set({ isTTSLoading: false })
         }

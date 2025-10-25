@@ -227,7 +227,47 @@ export default function Chat() {
       // Show loading state for this message
       addTTSLoadingMessage(messageIndex)
 
-      // Use Coqui TTS service
+      // Check if using browser TTS or if Coqui TTS is available
+      const isBrowserTTS = selectedTTSModel === 'browser-tts'
+
+      if (isBrowserTTS) {
+        // Use browser TTS directly
+        removeTTSLoadingMessage(messageIndex)
+
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(content)
+
+          // Set the selected voice
+          const selectedVoiceObj = voices.find(voice => voice.voiceURI === selectedVoice)
+          if (selectedVoiceObj) {
+            utterance.voice = selectedVoiceObj
+          }
+
+          // Apply voice enhancement if enabled
+          if (voiceEnhancement) {
+            await voiceProcessor.enhanceSpeech(utterance, content)
+          }
+
+          utterance.onstart = () => {
+            setPlayingMessageId(messageIndex)
+          }
+
+          utterance.onend = () => {
+            setPlayingMessageId(null)
+          }
+
+          utterance.onerror = () => {
+            setPlayingMessageId(null)
+          }
+
+          speechSynthesis.speak(utterance)
+        } else {
+          alert('Text-to-speech is not supported.')
+        }
+        return
+      }
+
+      // Try Coqui TTS service
       const response = await fetch('/api/tts', {
         method: 'POST',
         headers: {
@@ -241,11 +281,11 @@ export default function Chat() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to generate TTS')
+        throw new Error(`TTS API responded with status: ${response.status}`)
       }
 
       const data = await response.json()
-      if (data.success) {
+      if (data.success && data.audioUrl) {
         // Remove loading state
         removeTTSLoadingMessage(messageIndex)
 
@@ -258,6 +298,7 @@ export default function Chat() {
           setPlayingMessageId(null)
         }
         await audio.play()
+        setPlayingMessageId(messageIndex)
       } else {
         throw new Error(data.error || 'TTS generation failed')
       }

@@ -1,7 +1,5 @@
 import { NextRequest } from 'next/server'
 import { TTSService } from '@/lib/tts-service'
-import path from 'path'
-import fs from 'fs'
 
 const ttsService = new TTSService()
 
@@ -16,28 +14,16 @@ export async function POST(request: NextRequest) {
 
     // Generate unique filename if not provided
     const filename = outputPath || `tts_${Date.now()}.wav`
-    const fullOutputPath = path.join(process.cwd(), 'public', 'audio', filename)
 
-    // Ensure the audio directory exists
-    const audioDir = path.dirname(fullOutputPath)
-    if (!fs.existsSync(audioDir)) {
-      fs.mkdirSync(audioDir, { recursive: true })
-    }
-
-    // Generate speech using TTS service
-    await ttsService.generateSpeech({
+    // Generate speech using TTS service (now uses Coqui TTS server)
+    const generatedFilename = await ttsService.generateSpeech({
       text,
       model: model || 'tts_models/en/ljspeech/tacotron2-DDC',
-      outputPath: fullOutputPath
+      outputPath: filename
     })
 
-    // Check if file was created
-    if (!fs.existsSync(fullOutputPath)) {
-      throw new Error('Audio file was not created')
-    }
-
     // Return the public URL path
-    const publicPath = `/audio/${filename}`
+    const publicPath = `/audio/${generatedFilename}`
 
     return new Response(JSON.stringify({
       success: true,
@@ -65,17 +51,38 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    // List available models
-    const models = await ttsService.listAvailableModels()
+    // Check if TTS server is available
+    const isServerAvailable = await ttsService.checkServerHealth()
 
-    return new Response(JSON.stringify({
-      success: true,
-      models: models
-    }), {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    if (isServerAvailable) {
+      // List available models from the server
+      const models = await ttsService.listAvailableModels()
+
+      return new Response(JSON.stringify({
+        success: true,
+        models: models
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    } else {
+      // Return fallback models when server is not available
+      return new Response(JSON.stringify({
+        success: true,
+        models: [
+          {
+            name: 'browser-tts',
+            description: 'Browser TTS (Default)',
+            language: 'en'
+          }
+        ]
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    }
 
   } catch (error) {
     console.error('TTS models list error:', error)

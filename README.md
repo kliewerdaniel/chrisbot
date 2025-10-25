@@ -74,21 +74,20 @@
 - **Ollama** ([Install here](https://ollama.ai/))
 - **Git** ([Download here](https://git-scm.com/))
 
-### 🚀 Installation
+### 🚀 Installation & Setup
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/kliewerdaniel/chrisbot.git
    cd chrisbot
-   git clone https://github.com/coqui-ai/TTS.git
    ```
 
-2. **Install Node.js dependencies**
+2. **Start the application** (works immediately!)
    ```bash
-   npm install
+   bash start.sh
    ```
 
-3. **Start Ollama service**
+3. **Start Ollama service** (in another terminal)
    ```bash
    ollama serve
    ```
@@ -98,18 +97,23 @@
    ollama pull mistral
    ```
 
-5. **Initialize knowledge graph** (optional, for enhanced context)
-   ```bash
-   bash scripts/init-knowledge-graph.sh
-   ```
-
-6. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-7. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+### 🎵 Text-to-Speech Setup (Optional)
+
+For enhanced TTS functionality with Coqui TTS:
+
+```bash
+# In a new terminal, while the app is running
+bash setup-tts.sh
+```
+
+This will:
+- Set up the Coqui TTS environment
+- Install all required dependencies
+- Start the TTS server on port 8080
+- Enable high-quality speech synthesis in the chat interface
 
 ### 🎯 Basic Usage
 
